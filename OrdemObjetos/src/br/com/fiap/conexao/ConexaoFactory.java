@@ -5,10 +5,22 @@ import java.sql.DriverManager;
 
 public class ConexaoFactory {
 	public Connection getConnection() throws Exception{
-		/*Para MySQL.....
-		 Class.forName("com.mysql.jdbc.Driver");
-		 return DriverManager.getConnection("jdbc:mysql://localhost:3306/teste", "root","");
-		 */
+		FileReader arquivo = new FileReader("c:/temp/banco.txt");
+		BufferedReader dados = new BufferedReader(arquivo);
+		String url = dados.readLine();
+		String usuario = dados.readLine();
+		String senha = dados.readLine();
+		if(url.indexOf("oracle")>0){
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		}else if(url.indexOf("mysql")>0){
+			Class;forName("com.mysql.jdbc.Driver");
+		}
+		dados.close();
 		return DriverManager.getConnection("jdbc:oracle:thin:/:@192.168.60.15:1521:ORCL");
+		
+		//jdbc:oracle:thin:/:@192.168.60.15:1521:ORCL
+		//jdbc:oracle:thin:/:@oracle.fiap.com.br:1521:ORCL --> OPS$PF0709
+		//jdbc:oracle:thin:/:@localhost:1521:xe --> system
+		//jdbc:oracle:thin:/:@localhost:3306/teste --> root
 	}
 }
