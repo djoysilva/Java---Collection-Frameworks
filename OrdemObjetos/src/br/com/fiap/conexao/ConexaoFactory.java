@@ -6,12 +6,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConexaoFactory {
-	public Connection getConnection() throws Exception{
+	public Connection getConnection(String usuario, String senha) throws Exception{
 		FileReader arquivo = new FileReader(System.getProperty("user.dir") + "/conexao/banco.txt");
 		BufferedReader dados = new BufferedReader(arquivo);
 		String url = dados.readLine();
-		String usuario = dados.readLine();
-		String senha = dados.readLine();
+		//String usuario = dados.readLine();
+		//String senha = dados.readLine();
 		if(url.indexOf("oracle")>0){
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		}else if(url.indexOf("mysql")>0){
