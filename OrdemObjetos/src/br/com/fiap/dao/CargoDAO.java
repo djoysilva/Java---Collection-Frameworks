@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.beans.Cargo;
-import br.com.fiap.conexao.ConexaoFactory;
 
 /**
  * Na documentaçã você inicia desenvolvendo uma aplicação sucinta do se projeto. Neste espaço onde você
@@ -25,13 +24,12 @@ import br.com.fiap.conexao.ConexaoFactory;
 
 public class CargoDAO {
 	
-	private Connection conexao;
+	/**private Connection conexao;
 	
 	public CargoDAO(String user, String pass) throws Exception{
 		this.conexao = new ConexaoFactory().getConnection(user, pass);
 	}
 	
-	/**
 	 * Método que <b>adiciona</b> ums tupla na tabela
 	 * TB_CARGO.
 	 * @param c Um objet d tipo Cargo
@@ -39,7 +37,7 @@ public class CargoDAO {
 	 * @author Joyce Silva
 	 * @see Cargos
 	 */
-	public void gravar(Cargo c) throws Exception{
+	public void gravar(Cargo c, Connection conexao) throws Exception{
 		String sql = "insert into TB_CARGO " +
 					"(NM_CARGO, DS_NIVEL, VL_SALARIO) values (?, ?, ?)";
 		PreparedStatement estrutura = conexao.prepareStatement(sql);
@@ -50,9 +48,9 @@ public class CargoDAO {
 		estrutura.close();
 	}
 	
-	public List<Cargo> getLista() throws Exception{
+	public List<Cargo> getLista(Connection conexao) throws Exception{
 		List<Cargo> lstCargos = new ArrayList<Cargo>();
-		PreparedStatement estrutura = this.conexao.prepareStatement("select * from TB_CARGO");
+		PreparedStatement estrutura = conexao.prepareStatement("select * from TB_CARGO");
 		ResultSet resultadoDados = estrutura.executeQuery();
 		while (resultadoDados.next()){
 			Cargo cargo =  new Cargo();
@@ -66,9 +64,9 @@ public class CargoDAO {
 		return lstCargos;
 	}
 	
-	public Cargo getPesquisarCargo(String strCargo)throws Exception{
+	public Cargo getPesquisarCargo(String strCargo, Connection conexao)throws Exception{
 		Cargo cargo = new Cargo();
-		PreparedStatement estrutura = this.conexao.prepareStatement("select * from TB_CARGO where NM_CARGO = ?");
+		PreparedStatement estrutura = conexao.prepareStatement("select * from TB_CARGO where NM_CARGO = ?");
 		estrutura.setString(1, strCargo);
 		ResultSet resultadoDados = estrutura.executeQuery();
 		if(resultadoDados.next()){
@@ -81,15 +79,15 @@ public class CargoDAO {
 		return cargo;
 	}
 	
-	public void deletar(String strCargo) throws Exception{
+	public void deletar(String strCargo, Connection conexao) throws Exception{
 		Cargo cargo = new Cargo();
-		PreparedStatement estrutura = this.conexao.prepareStatement("delete TB_CARGO where NM_CARGO = ?");
+		PreparedStatement estrutura = conexao.prepareStatement("delete TB_CARGO where NM_CARGO = ?");
 		estrutura.setString(1, strCargo);
 		estrutura.execute();
 		estrutura.close();	
 	}
 	
-	public int atualizar(double pAumento) throws Exception{
+	public int atualizar(double pAumento, Connection conexao) throws Exception{
 		PreparedStatement stmt = conexao.prepareStatement("update TB_CARGO set VL_SALARIO=VL_SAARIO * ('+?)");
 		stmt.setDouble(1, pAumento/100);
 		int saida = stmt.executeUpdate();
