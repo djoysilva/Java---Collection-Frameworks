@@ -13,7 +13,7 @@ public class TesteConexao3 {
 		try{
 			String user= JOptionPane.showInputDialog("Digite o usuário: ");
 			String pass= JOptionPane.showInputDialog("Digite o senha: ");
-			c = new ConexaoFactory().controlarInstancia().getConnection(user,pass);
+			c = new ConexaoFactory().getConnection(user,pass);
 			System.out.println("Conexão aberta!");
 		}catch(Exception e){
 			System.out.println("Erro de conexão");

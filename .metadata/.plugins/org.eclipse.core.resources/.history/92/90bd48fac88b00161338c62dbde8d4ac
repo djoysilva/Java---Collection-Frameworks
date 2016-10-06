@@ -18,11 +18,11 @@ public abstract class CargoBO{
 		new CargoDAO().gravar(c,conn);
 	}
 	public static List<Cargo> listarCargos(Connection conn) throws Exception{
-		return new CargoDAO().getLista(conn);
+		return new CargoDAO(u,p).getLista(conn);
 	}
 	
 	public static Cargo consultarCargo(String pCargo, Connection conn) throws Exception{
-		return new CargoDAO().getPesquisarCargo(pCargo.toUpperCase(), conn);
+		return new CargoDAO(u, p).getPesquisarCargo(pCargo.toUpperCase(), conn);
 	}
 	
 	public static void deletar(String pCargo, Connection conn) throws Exception{
