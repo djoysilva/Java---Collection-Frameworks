@@ -16,7 +16,6 @@ public class TesteCargoBo {
 		try{
 			//CargoBo bo = new CargoBO();
 			con = ConexaoFactory.controlarInstancia().getConnection("", "");
-			con.setAutoCommit(false);
 			Cargo c = new Cargo();
 			do{
 				c = new Cargo();
@@ -34,18 +33,8 @@ public class TesteCargoBo {
 			String strSearch = JOptionPane.showInputDialog("Digite o cargo que deseja pesquisar");
 			c = CargoBO.consultarCargo(strSearch, con);
 			System.out.println(c.getCargo());
-			//int teste = 10/0;
-			con.commit();
-			con.setAutoCommit(true);
 		}catch (Exception e){
-			con.rollback();
 			throw new Excecao("Deu erro", e);
-		}finally{
-			try{
-				con.close();
-			}catch(Exception e){
-				throw new Excecao("Falha");
-			}
 		}
 	}
 }

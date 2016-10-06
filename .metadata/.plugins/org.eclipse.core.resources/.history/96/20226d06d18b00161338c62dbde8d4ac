@@ -34,7 +34,6 @@ public class TesteCargoBo {
 			String strSearch = JOptionPane.showInputDialog("Digite o cargo que deseja pesquisar");
 			c = CargoBO.consultarCargo(strSearch, con);
 			System.out.println(c.getCargo());
-			//int teste = 10/0;
 			con.commit();
 			con.setAutoCommit(true);
 		}catch (Exception e){
