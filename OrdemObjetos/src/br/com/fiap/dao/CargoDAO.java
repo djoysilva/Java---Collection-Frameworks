@@ -70,6 +70,7 @@ public class CargoDAO {
 		estrutura.setString(1, strCargo);
 		ResultSet resultadoDados = estrutura.executeQuery();
 		if(resultadoDados.next()){
+			cargo.setCodigo(resultadoDados.getInt("CD_CARGO"));
 			cargo.setCargo(resultadoDados.getString("NM_CARGO"));
 			cargo.setNivel(resultadoDados.getString("DS_NIVEL"));
 			cargo.setSalario(resultadoDados.getDouble("VL_SALARIO"));
